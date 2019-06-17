@@ -1,0 +1,10 @@
+.header-links {
+    margin: 0;
+    align-items: center;
+    color: #fff;
+}
+
+.header-links-li {
+    margin-right: 20px;
+    font-size: 18px;
+}
