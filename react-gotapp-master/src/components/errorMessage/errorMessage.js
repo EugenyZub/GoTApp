@@ -21,12 +21,3 @@ export default class ErrorMessage extends Component {
         )
     }
 }
-
-// const ErrorBox = () => {
-//     return (
-//         <>
-//             <img src={img} alt='error'></img>
-//             <span>Something goes wrong</span>
-//         </>
-//     )
-// }

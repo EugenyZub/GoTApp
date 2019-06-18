@@ -9,7 +9,6 @@ export default class RandomChar extends Component {
     constructor() {
         super();
         this.updateChar();
-        //this.errorChoise();
     }
 
     gotService = new gotService();
@@ -26,20 +25,7 @@ export default class RandomChar extends Component {
         })
     }
 
-    // errorChoise(num) {
-    //     const array = [404, 408, 410];
-    //     let aaa = array[
-    //         num === 404 ? 0 : num === 408 ? 1 : 2
-    //     ];
-    //     return aaa;
-    // }
-
     onError = (err) => {
-        // this.errorChoise(randNum);
-        // let randNum = Math.floor(Math.random()*3 + 1);
-        
-        //let errorNumber = this.errorChoise(err);
-
         this.setState({
             error: err,
             loading: false
