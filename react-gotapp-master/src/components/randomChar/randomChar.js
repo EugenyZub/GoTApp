@@ -4,15 +4,12 @@ import {ListGroup, ListGroupItem} from 'reactstrap';
 import gotService from '../../services/gotService';
 import Spinner from '../spinner';
 import ErrorMessage from '../errorMessage';
-import ErrorMessage404 from '../error404';
-import ErrorMessage408 from '../error408';
-import ErrorMessage410 from '../error410';
 
 export default class RandomChar extends Component {
     constructor() {
         super();
         this.updateChar();
-        this.errorChoise();
+        //this.errorChoise();
     }
 
     gotService = new gotService();
@@ -23,51 +20,58 @@ export default class RandomChar extends Component {
     }
 
     onCharLoaded = (char) => {
-        this.setState({
-            char,
-            loading: false
-        })
+        if (typeof char === typeof null) {
+            this.setState({
+                char,
+                loading: false
+            })
+        } else {
+            this.setState({
+                error: char,
+                loading: false
+            })  
+        }
     }
 
-    errorChoise(num) {
-        const array = [404, 408, 410];
-        return array[
-            num === 1 ? 0 : num === 2 ? 1 : 2
-        ];
-    }
+    // errorChoise(num) {
+    //     const array = [404, 408, 410];
+    //     let aaa = array[
+    //         num === 404 ? 0 : num === 408 ? 1 : 2
+    //     ];
+    //     return aaa;
+    // }
 
-    onError = (err) => {
-        let randNum = Math.floor(Math.random()*3 + 1);
+    //onError = (err) => {
+        //this.errorChoise(randNum);
+        //let randNum = Math.floor(Math.random()*3 + 1);
         
-        let errorNumber= this.errorChoise(randNum);
+        //let errorNumber = this.errorChoise(randNum);
 
-        this.setState({
-            error: errorNumber,
-            loading: false
-        })
-        console.log(errorNumber)
-    }
+        // this.setState({
+        //     error: errorNumber,
+        //     loading: false
+        // })
+    //}
 
     updateChar() {
         //const id = Math.floor(Math.random()*140 + 25);
         const id = 13000000000;   //для ошибки 404.
         this.gotService.getCharacter(id)
             .then(this.onCharLoaded)
-            .catch(this.onError);
+           // .catch(this.onError);
     }
 
     render() {
         const {char, loading, error } = this.state;
 
-        const errorMessage = error === 404 ? <ErrorMessage404/> : 
-              error === 408 ? <ErrorMessage408/> : 
-              error === 410 ? <ErrorMessage410/> : null;
+        const errorMessage = error === 404 ? <ErrorMessage error={error}/> :  null;
 
         const spinner = loading ? <Spinner/> : null;
         const content = !(loading || error) ? <View char={char}/> : null;
 
         return (
-            <div className="random-block rounded">
+            <div 
+                className="random-block rounded">
                 {errorMessage}
                 {spinner}
                 {content}
