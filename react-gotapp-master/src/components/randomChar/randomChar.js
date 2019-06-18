@@ -20,17 +20,10 @@ export default class RandomChar extends Component {
     }
 
     onCharLoaded = (char) => {
-        if (typeof char === typeof null) {
-            this.setState({
-                char,
-                loading: false
-            })
-        } else {
-            this.setState({
-                error: char,
-                loading: false
-            })  
-        }
+        this.setState({
+            char,
+            loading: false
+        })
     }
 
     // errorChoise(num) {
@@ -41,24 +34,24 @@ export default class RandomChar extends Component {
     //     return aaa;
     // }
 
-    //onError = (err) => {
-        //this.errorChoise(randNum);
-        //let randNum = Math.floor(Math.random()*3 + 1);
+    onError = (err) => {
+        // this.errorChoise(randNum);
+        // let randNum = Math.floor(Math.random()*3 + 1);
         
-        //let errorNumber = this.errorChoise(randNum);
+        //let errorNumber = this.errorChoise(err);
 
-        // this.setState({
-        //     error: errorNumber,
-        //     loading: false
-        // })
-    //}
+        this.setState({
+            error: err,
+            loading: false
+        })
+    }
 
     updateChar() {
         //const id = Math.floor(Math.random()*140 + 25);
         const id = 13000000000;   //для ошибки 404.
         this.gotService.getCharacter(id)
             .then(this.onCharLoaded)
-           // .catch(this.onError);
+            .catch(this.onError);
     }
 
     render() {
