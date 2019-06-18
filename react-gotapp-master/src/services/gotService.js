@@ -13,11 +13,13 @@ export default class GotService {
         return await res.json();
     };
 
-    getAllCharacters() {
-        return this.getResource('/characters?page=5&pageSize=10');
+    async getAllCharacters() {
+        const res = await this.getResource('/characters?page=5&pageSize=10');
+        return res.map(this._transformCharacter);
     }
-    getCharacter(id) {
-        return this.getResource(`/characters/${id}`);
+    async getCharacter(id) {
+        const character = await this.getResource(`/characters/${id}`);
+        return this._transformCharacter(character);
     }
 
     //books
@@ -35,32 +37,14 @@ export default class GotService {
     getHouse(id) {
         return this.getResource(`/houses/${id}`);
     }
+
+    _transformCharacter(char) {
+        return {
+            name: char.name,
+            gender: char.gender,
+            born: char.born,
+            died: char.died,
+            culture: char.culture
+        };
+    }
 }
-
-const got = new GotService();
-//Персонажи
-got.getAllCharacters()
-    .then(res => {
-        res.forEach( item => console.log(item.name));
-    });
-
-got.getCharacter(130)
-    .then(res => console.log(res));
-
-//Книги
-got.getAllBooks()
-    .then(res => {
-        res.forEach( item => console.log(item.name));
-    });
-
-got.getBook(4)
-    .then(res => console.log(res));
-
-//дома
-got.getAllHouses()
-    .then(res => {
-        res.forEach( item => console.log(item.name));
-    });
-
-got.getHouse(8)
-    .then(res => console.log(res));
