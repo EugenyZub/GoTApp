@@ -1,2 +1,2 @@
-import ErrorMessage from './erorMessage';
+import ErrorMessage from './errorMessage';
 export default ErrorMessage;
