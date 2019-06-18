@@ -18,35 +18,26 @@ export default class RandomChar extends Component {
         error: ''
     }
 
-    onCharLoaded = (char) => {
-        
-        if (typeof char === typeof null) {
-            this.setState({
-                char,
-                loading: false
-            })
-        } else {
-            //console.log(char);
-            this.setState({
-                error: char,
-                loading: false
-            })
-        }
+    onCharLoaded = (char) => {  
+        this.setState({
+            char,
+            loading: false
+        })
     }
 
-    // onError = () => {
-    //     this.setState({
-    //         error: true,
-    //         loading: false
-    //     })
-    // }
+    onError = (err) => {
+        this.setState({
+            error: err,
+            loading: false
+        })
+    }
 
     updateChar() {
         //const id = Math.floor(Math.random()*140 + 25);
         const id = 13000000000;
         this.gotService.getCharacter(id)
             .then(this.onCharLoaded)
-            // .catch(this.onError);
+            .catch(this.onError);
     }
 
     render() {

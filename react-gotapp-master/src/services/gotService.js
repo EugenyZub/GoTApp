@@ -9,8 +9,9 @@ export default class GotService {
 
         if (!res.ok) {
             if (res.status >= 400) {
-                return res.status;
+                //return res.status;
                 //throw new Error(`Could not fetch ${url}, status:  ${res.status}`);
+                throw res.status;
             }   
         }
 
@@ -24,8 +25,8 @@ export default class GotService {
     }
     async getCharacter(id) {
         const character = await this.getResource(`/characters/${id}`);
-        //return this._transformCharacter(character);
-        return typeof character === typeof null ? this._transformCharacter(character) : character;
+        return this._transformCharacter(character);
+        //return typeof character === typeof null ? this._transformCharacter(character) : character;
     }
 
     //books
