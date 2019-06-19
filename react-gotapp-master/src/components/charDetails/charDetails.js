@@ -28,13 +28,6 @@ export default class CharDetails extends Component {
         error: ''
     }
 
-    // onError = (err) => {
-    //     this.setState({
-    //         error: err,
-    //         loading: false
-    //     })
-    // }
-
     componentDidMount() {
         this.updateChar();
     }
@@ -53,6 +46,10 @@ export default class CharDetails extends Component {
     }
 
     componentDidCatch() {
+        this.onError();
+    }
+
+    onError = () => {
         this.setState({
             error: true,
             loading: false
@@ -72,16 +69,13 @@ export default class CharDetails extends Component {
                     loading: false
                 })
             })
+            .catch(this.onError);
             //this.foo.born = 0;
     }
 
     render() {
         const {char, loading, error } = this.state;
 
-        // if (this.state.error) {
-        //     return <ErrorMessage/>
-        // }
-        //console.log(!this.state.char)
         if (!char) {
             return <span className='select-error'>Please select a character</span>
         } 

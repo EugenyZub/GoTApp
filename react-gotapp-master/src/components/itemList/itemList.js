@@ -12,17 +12,31 @@ export default class ItemList extends Component {
 
     state = {
         charList: null,
-        error: false
+        error: false,
+        loading: true
     }
     
+    onError = () => {
+        this.setState({
+            error: true,
+            loading: false
+        })
+    }
+
     componentDidMount() {
         this.gotService.getAllCharacters()
             .then( (charList) => {
                 this.setState({
-                    charList
+                    charList,
+                    loading: false
                 })
             })
+            .catch(this.onError);
             //this.foo.born = 0;  //для ошибки
+    }
+
+    componentDidCatch() {
+        this.onError();
     }
 
     renderItems(arr) {
@@ -40,20 +54,19 @@ export default class ItemList extends Component {
     }
 
     render() {
+        const {charList, error, loading} = this.state;
 
-        const {charList} = this.state;
-        //const {url} = charList;
-
-
-        if (!charList) {
+        if (loading) {
             return <Spinner/>
         }
-
         const items = this.renderItems(charList);
+
+        const errorMessage = error ? <ErrorMessage/> : null;
 
         return (
             <ListGroup>
-               {items}
+                {errorMessage}
+                {items}
             </ListGroup>
         );
     }
