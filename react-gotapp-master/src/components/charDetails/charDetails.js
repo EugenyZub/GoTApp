@@ -28,12 +28,12 @@ export default class CharDetails extends Component {
         error: ''
     }
 
-    onError = (err) => {
-        this.setState({
-            error: err,
-            loading: false
-        })
-    }
+    // onError = (err) => {
+    //     this.setState({
+    //         error: err,
+    //         loading: false
+    //     })
+    // }
 
     componentDidMount() {
         this.updateChar();
@@ -45,20 +45,12 @@ export default class CharDetails extends Component {
         }
     }
 
-    // componentDidCatch() {
-    //     console.log(111)
-    //     this.onError();
-    //     // this.setState({
-    //     //     error: true
-    //     // })
-    // }
-
-    // onLoaded = (char) => {  
-    //     this.setState({
-    //         char,
-    //         loading: false
-    //     })
-    // }
+    componentDidCatch() {
+        this.setState({
+            error: true,
+            loading: false
+        })
+    }
 
     updateChar() {
         const {charId} = this.props;
@@ -67,8 +59,6 @@ export default class CharDetails extends Component {
         }
 
         this.gotService.getCharacter(charId)
-            //.then(this.onLoaded)
-            //.catch(this.onError);
             .then((char) => {
                 this.setState({
                     char,
@@ -81,12 +71,13 @@ export default class CharDetails extends Component {
     render() {
         const {char, loading, error } = this.state;
 
+        // if (this.state.error) {
+        //     return <ErrorMessage/>
+        // }
         //console.log(!this.state.char)
         if (!this.state.char) {
             return <span className='select-error'>Please select a character</span>
         } 
-        
-        //const {name, gender, born, died, culture} = this.state.char;
 
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;

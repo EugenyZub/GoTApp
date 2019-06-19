@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {ListGroup, ListGroupItem} from 'reactstrap';
 import gotService from '../../services/gotService';
 import Spinner from '../spinner';
+import ErrorMessage from '../errorMessage';
 
 import './itemList.css';
 
@@ -10,7 +11,8 @@ export default class ItemList extends Component {
     gotService = new gotService();
 
     state = {
-        charList: null
+        charList: null,
+        error: false
     }
     
     componentDidMount() {
@@ -20,6 +22,7 @@ export default class ItemList extends Component {
                     charList
                 })
             })
+            //this.foo.born = 0;  //для ошибки
     }
 
     renderItems(arr) {
@@ -40,6 +43,7 @@ export default class ItemList extends Component {
 
         const {charList} = this.state;
         //const {url} = charList;
+
 
         if (!charList) {
             return <Spinner/>
