@@ -2,17 +2,24 @@ import React, {Component} from 'react';
 import {Col, Row, Container, Button} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
-import ItemList from '../itemList';
-import CharDetails from '../charDetails';
 //import GotService from '../../services/gotService';
-
+import ErrorMessage from '../errorMessage';
+import CharacterPage from '../characterPage';
 import './app.css';
 
 export default class App extends Component {
 
     state = {
-        view: true
+        view: true,
+        error: false
     };
+
+    componentDidCatch() {
+        console.log('error')
+        this.setState({
+            error: true
+        })
+    }
 
     onClickMagicButton = () => {
         const {view} = this.state;
@@ -22,10 +29,16 @@ export default class App extends Component {
         })
     }
 
+
+
     render() {
-        const {view} = this.state;
+        const {view, error} = this.state;
 
         const  buttonClick =  view ? <RandomChar/> : null;
+
+        if (error) {
+            return <ErrorMessage/>
+        }
 
         return (
             <> 
@@ -43,14 +56,7 @@ export default class App extends Component {
                             {buttonClick}
                         </Col>
                     </Row>
-                    <Row>
-                        <Col md='6'>
-                            <ItemList />
-                        </Col>
-                        <Col md='6'>
-                            <CharDetails />
-                        </Col>
-                    </Row>
+                   <CharacterPage/>
                 </Container>
             </>
         );
