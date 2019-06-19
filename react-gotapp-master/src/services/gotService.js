@@ -6,7 +6,6 @@ export default class GotService {
 
     async getResource(url) {
         const res = await fetch(`${this._apiBase}${url}`);
-
         if (!res.ok) {
             if (res.status >= 400) {
                 //return res.status;
@@ -55,7 +54,8 @@ export default class GotService {
             gender: char.gender,
             born: char.born,
             died: char.died,
-            culture: char.culture
+            culture: char.culture,
+            url: char.url
         };
     }
 

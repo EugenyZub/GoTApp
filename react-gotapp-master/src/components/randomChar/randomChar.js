@@ -30,12 +30,15 @@ export default class RandomChar extends Component {
         })
     }
 
+    
+
     onError = (err) => {
         this.setState({
             error: err,
             loading: false
         })
     }
+
 
     updateChar = () => {
         const id = Math.floor(Math.random()*140 + 25);
@@ -46,7 +49,6 @@ export default class RandomChar extends Component {
     }
 
     render() {
-        console.log('render')
         const {char, loading, error } = this.state;
 
         const errorMessage = error ? <ErrorMessage/> : null;

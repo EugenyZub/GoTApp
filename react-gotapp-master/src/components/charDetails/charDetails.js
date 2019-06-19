@@ -3,6 +3,10 @@ import React, {Component} from 'react';
 import {ListGroup, ListGroupItem} from 'reactstrap';
 import styled from 'styled-components';
 import gotService from '../../services/gotService';
+import Spinner from '../spinner';
+import ErrorMessage from '../errorMessage';
+
+import './charDetails.css';
 
 const CharDetailsBlock = styled.div`
     background-color: #fff;
@@ -19,7 +23,16 @@ export default class CharDetails extends Component {
     gotService = new gotService();
 
     state = {
-        char: null
+        char: null,
+        loading: true,
+        error: ''
+    }
+
+    onError = (err) => {
+        this.setState({
+            error: err,
+            loading: false
+        })
     }
 
     componentDidMount() {
@@ -32,6 +45,21 @@ export default class CharDetails extends Component {
         }
     }
 
+    // componentDidCatch() {
+    //     console.log(111)
+    //     this.onError();
+    //     // this.setState({
+    //     //     error: true
+    //     // })
+    // }
+
+    // onLoaded = (char) => {  
+    //     this.setState({
+    //         char,
+    //         loading: false
+    //     })
+    // }
+
     updateChar() {
         const {charId} = this.props;
         if (!charId) {
@@ -39,43 +67,65 @@ export default class CharDetails extends Component {
         }
 
         this.gotService.getCharacter(charId)
+            //.then(this.onLoaded)
+            //.catch(this.onError);
             .then((char) => {
-                this.setState({char})
+                this.setState({
+                    char,
+                    loading: false
+                })
             })
             //this.foo.born = 0;
     }
 
     render() {
+        const {char, loading, error } = this.state;
 
+        //console.log(!this.state.char)
         if (!this.state.char) {
             return <span className='select-error'>Please select a character</span>
         } 
+        
+        //const {name, gender, born, died, culture} = this.state.char;
 
-        const {name, gender, born, died, culture} = this.state.char;
-
+        const errorMessage = error ? <ErrorMessage/> : null;
+        const spinner = loading ? <Spinner/> : null;
+        const content = !(loading || error) ? <View char={char}/> : null;
 
         return (
             <CharDetailsBlock className="rounded">
-                <h4>{name}</h4>
-                <ListGroup flush>
-                    <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Gender</span>
-                        <span>{gender}</span>
-                    </ListGroupItem>
-                    <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Born</span>
-                        <span>{born}</span>
-                    </ListGroupItem>
-                    <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Died</span>
-                        <span>{died}</span>
-                    </ListGroupItem>
-                    <ListGroupItem className="d-flex justify-content-between">
-                        <span className="term">Culture</span>
-                        <span>{culture}</span>
-                    </ListGroupItem>
-                </ListGroup>
+                {errorMessage}
+                {spinner}
+                {content}
             </CharDetailsBlock>
         );
     }
+}
+
+
+const View = ({char}) => {
+    const {name, gender, born, died, culture} = char;
+    return (
+        <>
+            <h4>{name}</h4>
+            <ListGroup flush>
+                <ListGroupItem className="d-flex justify-content-between">
+                    <span className="term">Gender</span>
+                    <span>{gender}</span>
+                </ListGroupItem>
+                <ListGroupItem className="d-flex justify-content-between">
+                    <span className="term">Born</span>
+                    <span>{born}</span>
+                </ListGroupItem>
+                <ListGroupItem className="d-flex justify-content-between">
+                    <span className="term">Died</span>
+                    <span>{died}</span>
+                </ListGroupItem>
+                <ListGroupItem className="d-flex justify-content-between">
+                    <span className="term">Culture</span>
+                    <span>{culture}</span>
+                </ListGroupItem>
+            </ListGroup>
+        </>
+    )
 }

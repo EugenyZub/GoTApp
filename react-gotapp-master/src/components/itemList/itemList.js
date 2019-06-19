@@ -23,14 +23,13 @@ export default class ItemList extends Component {
     }
 
     renderItems(arr) {
-        return arr.map((item, i) => {
+        return arr.map((item) => {
+            const id = item.url.substr(-2);
             return (
                 <ListGroupItem 
-                    key={i}
-                    //tag='a'
+                    key={id}
                     className='cursor' 
-                    onClick={ () => this.props.onCharSelected(41 + i)}>
-                    {/* href={this.props.onCharSelected(41 + i)> */}
+                    onClick={ () => this.props.onCharSelected(id)}>
                     {item.name}
                 </ListGroupItem>
             )
@@ -40,8 +39,8 @@ export default class ItemList extends Component {
     render() {
 
         const {charList} = this.state;
+        //const {url} = charList;
 
-       
         if (!charList) {
             return <Spinner/>
         }
