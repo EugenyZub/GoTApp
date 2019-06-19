@@ -40,7 +40,14 @@ export default class CharDetails extends Component {
     }
 
     componentDidUpdate(prevProps) {
+        console.log(this.state.loading)
+
         if (this.props.charId !== prevProps.charId) {
+            if (this.state.loading === false) {
+                this.setState({
+                    loading: true
+                })
+            }
             this.updateChar();
         }
     }
@@ -75,7 +82,7 @@ export default class CharDetails extends Component {
         //     return <ErrorMessage/>
         // }
         //console.log(!this.state.char)
-        if (!this.state.char) {
+        if (!char) {
             return <span className='select-error'>Please select a character</span>
         } 
 
