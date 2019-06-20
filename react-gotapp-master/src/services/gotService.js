@@ -4,7 +4,7 @@ export default class GotService {
         
     }
 
-    async getResource(url) {
+     getResource = async (url) => {
         const res = await fetch(`${this._apiBase}${url}`);
         if (!res.ok) {
             if (res.status >= 400) {
@@ -18,35 +18,43 @@ export default class GotService {
     };
 
     //characters
-    async getAllCharacters() {
+    getAllCharacters = async () => {
         const allCharacters = await this.getResource('/characters?page=5&pageSize=10');
         return allCharacters.map(this._transformCharacter);
     }
-    async getCharacter(id) {
+    getCharacter = async (id) => {
         const character = await this.getResource(`/characters/${id}`);
         return this._transformCharacter(character);
         //return typeof character === typeof null ? this._transformCharacter(character) : character;
     }
 
     //books
-    async getAllBooks() {
+    getAllBooks = async () => {
         const allBooks =  await this.getResource('/books?page=1');
         return allBooks.map(this._transformBook)
     }
-    async getBook(id) {
+    getBook = async (id) => {
         const book = await this.getResource(`/books/${id}`);
         return this._transformBook(book);
     }
 
     //books
-    async getAllHouses() {
+    getAllHouses = async () => {
         const allHouse = await this.getResource('/houses?page=4');
         return allHouse.map(this._transformHouse);
     }
-    async getHouse(id) {
+    getHouse = async (id) => {
         const house = await this.getResource(`/houses/${id}`);
         return this._transformHouse(house);
     }
+
+    // isSet(data) {
+    //     if (data) {
+    //         return data;
+    //     } else {
+    //         return 'no data :(';
+    //     }
+    // }
 
     _transformCharacter(char) {
         return {
@@ -66,7 +74,8 @@ export default class GotService {
             words: house.words,
             titles: house.titles,
             overlord: house.overlord,
-            ancestraWeapons: house.ancestraWeapons
+            ancestraWeapons: house.ancestraWeapons,
+            url: house.url
         };
     }
 
@@ -75,7 +84,8 @@ export default class GotService {
             name: book.name,
             numberOfPages: book.numberOfPages,
             publisher: book.publisher,
-            released: book.released
+            released: book.released,
+            url: book.url
         };
     }
 }

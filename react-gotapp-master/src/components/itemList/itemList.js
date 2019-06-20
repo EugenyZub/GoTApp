@@ -1,17 +1,16 @@
 import React, {Component} from 'react';
 import {ListGroup, ListGroupItem} from 'reactstrap';
-import gotService from '../../services/gotService';
 import Spinner from '../spinner';
 import ErrorMessage from '../errorMessage';
+//import gotService from '../../services/gotService';
 
 import './itemList.css';
 
 export default class ItemList extends Component {
-
-    gotService = new gotService();
+    //gotService = new gotService();
 
     state = {
-        charList: null,
+        itemList: null,
         error: false,
         loading: true
     }
@@ -24,10 +23,12 @@ export default class ItemList extends Component {
     }
 
     componentDidMount() {
-        this.gotService.getAllCharacters()
-            .then( (charList) => {
+        const {getData} = this.props;
+
+        getData()
+            .then( (itemList) => {
                 this.setState({
-                    charList,
+                    itemList,
                     loading: false
                 })
             })
@@ -40,26 +41,30 @@ export default class ItemList extends Component {
     }
 
     renderItems(arr) {
+        
+
         return arr.map((item) => {
             const id = item.url.substr(-2);
+            //const {id} = item;
+            const label = this.props.renderItem(item);
             return (
                 <ListGroupItem 
                     key={id}
                     className='cursor' 
-                    onClick={ () => this.props.onCharSelected(id)}>
-                    {item.name}
+                    onClick={ () => this.props.onItemSelected(id)}>
+                    {label}
                 </ListGroupItem>
             )
         })
     }
 
     render() {
-        const {charList, error, loading} = this.state;
+        const {itemList, error, loading} = this.state;
 
         if (loading) {
             return <Spinner/>
         }
-        const items = this.renderItems(charList);
+        const items = this.renderItems(itemList);
 
         const errorMessage = error ? <ErrorMessage/> : null;
 
