@@ -22,9 +22,9 @@ const CharDetailsBlock = styled.div`
 const Field = ({char, field, label}) => {
     return (
         <ListGroupItem className="d-flex justify-content-between">
-                    <span className="term">{label}</span>
-                    <span>{char[field]}</span>
-                </ListGroupItem>
+                <span className="term">{label}</span>
+                <span>{char[field]}</span>
+        </ListGroupItem>
     )
 }
 

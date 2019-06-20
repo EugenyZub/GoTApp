@@ -6,6 +6,16 @@ import ErrorMessage from '../errorMessage';
 
 import './itemList.css';
 
+const List = () => {
+    return (
+        
+    )
+} 
+
+export {
+    List
+}
+
 export default class ItemList extends Component {
     //gotService = new gotService();
 
@@ -41,11 +51,8 @@ export default class ItemList extends Component {
     }
 
     renderItems(arr) {
-        
-
         return arr.map((item) => {
             const id = item.url.substr(-2);
-            //const {id} = item;
             const label = this.props.renderItem(item);
             return (
                 <ListGroupItem 
