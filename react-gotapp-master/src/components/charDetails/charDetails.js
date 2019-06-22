@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-//import './charDetails.css';
 import {ListGroup, ListGroupItem} from 'reactstrap';
 import styled from 'styled-components';
-import gotService from '../../services/gotService';
+//import gotService from '../../services/gotService';
 import Spinner from '../spinner';
 import ErrorMessage from '../errorMessage';
 
@@ -19,11 +18,11 @@ const CharDetailsBlock = styled.div`
     }
 `;
 
-const Field = ({char, field, label}) => {
+const Field = ({item, field, label}) => {
     return (
         <ListGroupItem className="d-flex justify-content-between">
                 <span className="term">{label}</span>
-                <span>{char[field]}</span>
+                <span>{item[field]}</span>
         </ListGroupItem>
     )
 }
@@ -34,10 +33,8 @@ export {
 
 export default class CharDetails extends Component {
 
-    gotService = new gotService();
-
     state = {
-        char: null,
+        item: null,
         loading: true,
         error: ''
     }
@@ -47,8 +44,7 @@ export default class CharDetails extends Component {
     }
 
     componentDidUpdate(prevProps) {
-
-        if (this.props.charId !== prevProps.charId) {
+        if (this.props.itemId !== prevProps.itemId) {
             if (this.state.loading === false) {
                 this.setState({
                     loading: true
@@ -70,32 +66,32 @@ export default class CharDetails extends Component {
     }
 
     updateChar() {
-        const {charId} = this.props;
-        if (!charId) {
+        const {getData, itemId} = this.props;
+        if (!itemId) {
             return;
         }
-
-        this.gotService.getCharacter(charId)
-            .then((char) => {
+        getData(itemId)
+            .then((item) => {
                 this.setState({
-                    char,
+                    item,
                     loading: false
                 })
+               
             })
             .catch(this.onError);
             //this.foo.born = 0;
     }
 
     render() {
-        const {char, loading, error } = this.state;
+        const {item, loading, error } = this.state;
 
-        if (!char) {
+        if (!item) {
             return <span className='select-error'>Please select a character</span>
         } 
 
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
-        const content = !(loading || error) ? <View char={char} children={this.props.children}/> : null;
+        const content = !(loading || error) ? <View item={item} children={this.props.children}/> : null;
 
         return (
             <CharDetailsBlock className="rounded">
@@ -108,15 +104,15 @@ export default class CharDetails extends Component {
 }
 
 
-const View = ({char, children}) => {
-    const {name} = char;
+const View = ({item, children}) => {
+    const {name} = item;
     return (
         <>
             <h4>{name}</h4>
             <ListGroup flush>
                 {
                     React.Children.map(children, (child) => {
-                        return React.cloneElement(child, {char})
+                        return React.cloneElement(child, {item})
                     })
                 }
             </ListGroup>

@@ -6,16 +6,6 @@ import ErrorMessage from '../errorMessage';
 
 import './itemList.css';
 
-const List = () => {
-    return (
-        
-    )
-} 
-
-export {
-    List
-}
-
 export default class ItemList extends Component {
     //gotService = new gotService();
 
@@ -42,6 +32,7 @@ export default class ItemList extends Component {
                     loading: false
                 })
             })
+            
             .catch(this.onError);
             //this.foo.born = 0;  //для ошибки
     }
@@ -50,15 +41,35 @@ export default class ItemList extends Component {
         this.onError();
     }
 
+    // checkItemType = (item) => {
+    //     const charFilter = '/(?<first>characters)';
+    //     const bookFilter = '/(?<first>books)';
+    //     const houseFilter = '/(?<first>houses)';
+
+    //     if(item.url.match(charFilter)) {
+    //         return 'char';
+    //     }
+
+    //     if(item.url.match(bookFilter)) {
+    //         return 'book';
+    //     }
+
+    //     if(item.url.match(houseFilter)) {
+    //         return 'house';
+    //     }
+    // }
+
     renderItems(arr) {
         return arr.map((item) => {
             const id = item.url.substr(-2);
-            const label = this.props.renderItem(item);
+            const label = this.props.renderItem(item);  
+ //           const itemType = this.checkItemType(item);
             return (
                 <ListGroupItem 
                     key={id}
                     className='cursor' 
-                    onClick={ () => this.props.onItemSelected(id)}>
+//                  onClick={ () => this.props.onItemSelected(id, itemType)}>
+                    onClick={ () => this.props.onItemSelected(id)}>   
                     {label}
                 </ListGroupItem>
             )

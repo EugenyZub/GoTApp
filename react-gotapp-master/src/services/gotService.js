@@ -48,14 +48,6 @@ export default class GotService {
         return this._transformHouse(house);
     }
 
-    // isSet(data) {
-    //     if (data) {
-    //         return data;
-    //     } else {
-    //         return 'no data :(';
-    //     }
-    // }
-
     _transformCharacter(char) {
         return {
             name: char.name,
