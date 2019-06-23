@@ -7,6 +7,7 @@ import CharacterPage from '../pages/characterPage';
 import BooksPage from '../pages/books'
 import HousesPage from '../pages/houses'
 import gotService from '../../services/gotService';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import './app.css';
 
