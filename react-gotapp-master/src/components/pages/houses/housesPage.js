@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-//import {Col, Row} from 'reactstrap';
 import ItemList from '../../itemList';
 import ItemDetails, {Field} from '../../itemDetails';
 import ErrorMessage from '../../errorMessage';
@@ -42,8 +41,10 @@ export default class HousesPage extends Component {
             <ItemDetails 
                     itemId={this.state.selectedHouse}
                     getData={this.gotService.getHouse}>
-                <Field field='region' label='region'/>
-                <Field field='words' label='words'/>
+                <Field field='region' label='Region'/>
+                <Field field='words' label='Words'/>
+                <Field field='titles' label='Titles'/>
+                <Field field='ancestraWeapons' label='Weapons'/>
             </ItemDetails>
         )
 

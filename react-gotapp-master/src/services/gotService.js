@@ -7,11 +7,7 @@ export default class GotService {
      getResource = async (url) => {
         const res = await fetch(`${this._apiBase}${url}`);
         if (!res.ok) {
-            if (res.status >= 400) {
-                //return res.status;
-                //throw new Error(`Could not fetch ${url}, status:  ${res.status}`);
-                throw res.status;
-            }   
+            throw res.status;
         }
 
         return await res.json();
@@ -25,7 +21,6 @@ export default class GotService {
     getCharacter = async (id) => {
         const character = await this.getResource(`/characters/${id}`);
         return this._transformCharacter(character);
-        //return typeof character === typeof null ? this._transformCharacter(character) : character;
     }
 
     //books

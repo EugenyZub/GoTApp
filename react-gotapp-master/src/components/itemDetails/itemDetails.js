@@ -1,13 +1,12 @@
 import React, {Component} from 'react';
 import {ListGroup, ListGroupItem} from 'reactstrap';
 import styled from 'styled-components';
-//import gotService from '../../services/gotService';
 import Spinner from '../spinner';
 import ErrorMessage from '../errorMessage';
 
 import './itemDetails.css';
 
-const CharDetailsBlock = styled.div`
+const ItemDetailsBlock = styled.div`
     background-color: #fff;
     padding: 25px 25px 15px 25px;
     margin-bottom: 40px;
@@ -35,12 +34,12 @@ export default class ItemDetails extends Component {
 
     state = {
         item: null,
-        loading: true,
+        loading: false,
         error: ''
     }
 
     componentDidMount() {
-        this.updateChar();
+        this.upgradeItem();
     }
 
     componentDidUpdate(prevProps) {
@@ -50,7 +49,7 @@ export default class ItemDetails extends Component {
                     loading: true
                 })
             }
-            this.updateChar();
+            this.upgradeItem();
         }
     }
 
@@ -65,7 +64,7 @@ export default class ItemDetails extends Component {
         })
     }
 
-    updateChar() {
+    upgradeItem() {
         const {getData, itemId} = this.props;
         if (!itemId) {
             return;
@@ -84,7 +83,7 @@ export default class ItemDetails extends Component {
 
     render() {
         const {item, loading, error } = this.state;
-        if (!item) {
+        if (!item && !loading) {
             return <span className='select-error'>Please select a character</span>
         } 
 
@@ -93,11 +92,11 @@ export default class ItemDetails extends Component {
         const content = !(loading || error) ? <View item={item} children={this.props.children}/> : null;
 
         return (
-            <CharDetailsBlock className="rounded">
+            <ItemDetailsBlock className="rounded">
                 {errorMessage}
                 {spinner}
                 {content}
-            </CharDetailsBlock>
+            </ItemDetailsBlock>
         );
     }
 }
