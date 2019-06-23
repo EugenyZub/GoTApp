@@ -16,7 +16,7 @@ export default class App extends Component {
     gotService = new gotService();
 
     state = {
-        view: true,
+        //view: true,
         error: false
     };
 
@@ -26,20 +26,18 @@ export default class App extends Component {
         })
     }
 
-    onClickMagicButton = () => {
-        const {view} = this.state;
+    // onClickMagicButton = () => {
+    //     const {view} = this.state;
 
-        this.setState({
-            view: !view
-        })
-    }
-
-
+    //     this.setState({
+    //         view: !view
+    //     })
+    // }
 
     render() {
-        const {view, error} = this.state;
+        const {error} = this.state;
 
-        const  buttonClick =  view ? <RandomChar/> : null;
+        //const  buttonClick =  view ? <RandomChar/> : null;
 
         if (error) {
             return <ErrorMessage/>
@@ -53,12 +51,13 @@ export default class App extends Component {
                 <Container>
                     <Row>
                         <Col lg={{size: 5, offset: 0}}>
-                            <Button className='magicButton'
+                        <RandomChar/>
+                            {/* <Button className='magicButton'
                                 color='primary'
                                 onClick={this.onClickMagicButton}>
                                 Волшебная кнопка
                             </Button>
-                            {buttonClick}
+                             {buttonClick} */}
                         </Col>
                     </Row>
                    <CharacterPage/>

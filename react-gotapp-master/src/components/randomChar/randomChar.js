@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './randomChar.css';
-import {ListGroup, ListGroupItem} from 'reactstrap';
+import {ListGroup, ListGroupItem, Button} from 'reactstrap';
 import gotService from '../../services/gotService';
 import Spinner from '../spinner';
 import ErrorMessage from '../errorMessage';
@@ -8,15 +8,17 @@ import ErrorMessage from '../errorMessage';
 export default class RandomChar extends Component {
 
     gotService = new gotService();
+
     state = {
         char: {},
         loading: true,
-        error: ''
+        error: '',
+        seeRandChar: false
     }
 
     componentDidMount() {
         this.updateChar();
-        this.timerId = setInterval(this.updateChar, 50000);
+        this.timerId = setInterval(this.updateChar, 3000);
     }
 
     componentWillUnmount() {
@@ -45,19 +47,33 @@ export default class RandomChar extends Component {
             .catch(this.onError);
     }
 
+    onClickMagicButton = () => {
+        const {seeRandChar} = this.state;
+
+        this.setState({
+            seeRandChar: !seeRandChar
+        })
+    }
+
     render() {
-        const {char, loading, error } = this.state;
+        const {char, loading, error, seeRandChar } = this.state;
 
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
-        const content = !(loading || error) ? <View char={char}/> : null;
-
+        const content = !(loading || error || seeRandChar) ? <View char={char}/> : null;
+        
         return (
-            <div className="random-block rounded">
+            <>
+                <Button className='magicButton'
+                    color='primary'
+                    onClick={this.onClickMagicButton}>
+                    Волшебная кнопка
+                </Button>
+
                 {errorMessage}
                 {spinner}
                 {content}
-            </div>
+            </>
         );
     }
 }
@@ -65,7 +81,7 @@ export default class RandomChar extends Component {
 const View = ({char}) => {
     const{name, gender, born, died, culture} = char;
     return (
-        <>
+        <div className="random-block rounded">
             <h4>Random Character: {name}</h4>
             <ListGroup flush>
                 <ListGroupItem className="d-flex justify-content-between">
@@ -85,6 +101,6 @@ const View = ({char}) => {
                     <span>{culture}</span>
                 </ListGroupItem>
             </ListGroup>
-        </>
+        </div>
     )
 }

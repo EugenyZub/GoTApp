@@ -49,6 +49,7 @@ export default class CharacterPage extends Component {
     }
     
     componentDidCatch() {
+
         this.setState({
             error: true
         })
@@ -67,27 +68,27 @@ export default class CharacterPage extends Component {
             )
         }
 
-        if( this.state.selectedBook !== null) {
-            return (
-                <CharDetails 
-                        itemId={this.state.selectedBook}
-                        getData={this.gotService.getBook}>
-                    <Field field='numberOfPages' label='pages'/>
-                    <Field field='publisher' label='publisher'/>
-                </CharDetails>
-            )
-        }
+        // if( this.state.selectedBook !== null) {
+        //     return (
+        //         <CharDetails 
+        //                 itemId={this.state.selectedBook}
+        //                 getData={this.gotService.getBook}>
+        //             <Field field='numberOfPages' label='pages'/>
+        //             <Field field='publisher' label='publisher'/>
+        //         </CharDetails>
+        //     )
+        // }
 
-        if( this.state.selectedHouse !== null) {
-            return ( 
-                <CharDetails 
-                        itemId={this.state.selectedHouse}
-                        getData={this.gotService.getHouse}>
-                    <Field field='region' label='region'/>
-                    <Field field='words' label='words'/>
-                </CharDetails>
-            )
-        }
+        // if( this.state.selectedHouse !== null) {
+        //     return ( 
+        //         <CharDetails 
+        //                 itemId={this.state.selectedHouse}
+        //                 getData={this.gotService.getHouse}>
+        //             <Field field='region' label='region'/>
+        //             <Field field='words' label='words'/>
+        //         </CharDetails>
+        //     )
+        // }
     }
 
     render() {

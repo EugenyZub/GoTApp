@@ -78,7 +78,7 @@ export default class ItemList extends Component {
 
     render() {
         const {itemList, error, loading} = this.state;
-
+        
         if (loading) {
             return <Spinner/>
         }

@@ -84,7 +84,6 @@ export default class CharDetails extends Component {
 
     render() {
         const {item, loading, error } = this.state;
-
         if (!item) {
             return <span className='select-error'>Please select a character</span>
         } 
