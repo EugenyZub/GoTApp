@@ -13,12 +13,12 @@ export default class RandomChar extends Component {
         char: {},
         loading: true,
         error: '',
-        seeRandChar: false
+        viewRandChar: false
     }
 
     componentDidMount() {
         this.updateChar();
-        this.timerId = setInterval(this.updateChar, 3000);
+        this.timerId = setInterval(this.updateChar, 50000);
     }
 
     componentWillUnmount() {
@@ -48,19 +48,19 @@ export default class RandomChar extends Component {
     }
 
     onClickMagicButton = () => {
-        const {seeRandChar} = this.state;
+        const {viewRandChar} = this.state;
 
         this.setState({
-            seeRandChar: !seeRandChar
+            viewRandChar: !viewRandChar
         })
     }
 
     render() {
-        const {char, loading, error, seeRandChar } = this.state;
+        const {char, loading, error, viewRandChar } = this.state;
 
         const errorMessage = error ? <ErrorMessage/> : null;
         const spinner = loading ? <Spinner/> : null;
-        const content = !(loading || error || seeRandChar) ? <View char={char}/> : null;
+        const content = !(loading || error || viewRandChar) ? <View char={char}/> : null;
         
         return (
             <>
