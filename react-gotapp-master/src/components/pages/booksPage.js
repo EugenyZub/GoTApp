@@ -24,12 +24,14 @@ class booksPage extends Component {
         }
 
         return (
-            <ItemList 
-                onItemSelected={(itemId) => {
-                    this.props.history.push(`/books${itemId}`)
-                }}
-                getData={this.gotService.getAllBooks}
-                renderItem={({name, numberOfPages}) => `${name} (${numberOfPages})`}/>
+            <div className='random-block'>
+                <ItemList 
+                    onItemSelected={(itemId) => {
+                        this.props.history.push(`/books${itemId}`)
+                    }}
+                    getData={this.gotService.getAllBooks}
+                    renderItem={({name, numberOfPages}) => `${name} (${numberOfPages})`}/>
+            </div>
         )
     }
 }

@@ -65,7 +65,7 @@ export default class ItemList extends Component {
         const errorMessage = error ? <ErrorMessage/> : null;
 
         return (
-            <ListGroup>
+            <ListGroup flush>
                 {errorMessage}
                 {items}
             </ListGroup>

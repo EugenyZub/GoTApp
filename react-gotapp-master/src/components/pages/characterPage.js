@@ -42,10 +42,12 @@ export default class CharacterPage extends Component {
         )
 
         const itemList = (
-            <ItemList 
-                onItemSelected={this.onItemSelected}
-                getData={this.gotService.getAllCharacters}
-                renderItem={({name, gender}) => `${name} (${gender})`}/>
+            <div className='random-block'>
+                <ItemList 
+                    onItemSelected={this.onItemSelected}
+                    getData={this.gotService.getAllCharacters}
+                    renderItem={({name, gender}) => `${name} (${gender})`}/>
+            </div>
         )  
 
         return (

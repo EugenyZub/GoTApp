@@ -46,7 +46,7 @@ export default class ItemDetails extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.itemId !== prevProps.itemId) {
-            if (this.state.loading === false) {
+            if (!this.state.loading) {
                 this.setState({
                     loading: true
                 })
@@ -71,6 +71,13 @@ export default class ItemDetails extends Component {
         if (!itemId) {
             return;
         }
+
+        if (!this.state.loading) {
+            this.setState({
+                loading: true
+            })
+        }
+
         getData(itemId)
             .then((item) => {
                 this.setState({
@@ -89,15 +96,18 @@ export default class ItemDetails extends Component {
             return <span className='select-error'>Please select an item to more details</span>
         } 
 
-        const errorMessage = error ? <ErrorMessage/> : null;
-        const spinner = loading ? <Spinner/> : null;
-        const content = !(loading || error) ? <View item={item} children={this.props.children}/> : null;
+        // const errorMessage = error ? <ErrorMessage/> : null;
+        // const spinner = loading ? <Spinner/> : null;
+        // const content = !(loading || error) ? <View item={item} children={this.props.children}/> : null;
 
+        const view = error ? <ErrorMessage/> : loading ? <Spinner/> : 
+                    !(loading || error) && <View item={item} children={this.props.children}/>; 
         return (
             <ItemDetailsBlock className="rounded">
-                {errorMessage}
+                {/* {errorMessage}
                 {spinner}
-                {content}
+                {content} */}
+                {view}
             </ItemDetailsBlock>
         );
     }
