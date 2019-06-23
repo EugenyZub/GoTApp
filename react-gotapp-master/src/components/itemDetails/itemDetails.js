@@ -7,9 +7,11 @@ import ErrorMessage from '../errorMessage';
 import './itemDetails.css';
 
 const ItemDetailsBlock = styled.div`
+    width: 50%;
+    text-align: center;
     background-color: #fff;
     padding: 25px 25px 15px 25px;
-    margin-bottom: 40px;
+    margin: auto;
 
     h4 {
         margin-bottom: 20px;
@@ -84,7 +86,7 @@ export default class ItemDetails extends Component {
     render() {
         const {item, loading, error } = this.state;
         if (!item && !loading) {
-            return <span className='select-error'>Please select a character</span>
+            return <span className='select-error'>Please select an item to more details</span>
         } 
 
         const errorMessage = error ? <ErrorMessage/> : null;

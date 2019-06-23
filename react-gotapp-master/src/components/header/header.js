@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Nav, NavItem, NavLink} from 'reactstrap';
+import {Nav, NavItem} from 'reactstrap';
 import './header.css';
+
+import {Link} from 'react-router-dom';
 
 const HeaderBlock = styled.div`
     display: flex;
@@ -20,19 +22,19 @@ const Header = () => {
     return (
         <HeaderBlock>
             <HeaderTitle>
-                <NavLink href="#">
+                <Link to='/home/'>
                     Game of Thrones DB
-                </NavLink>
+                </Link>
             </HeaderTitle>
             <Nav className='header-links'>
                 <NavItem className='header-links-li'>
-                    <NavLink href="#">Characters</NavLink>
+                    <Link to='/characters/'>Characters</Link>
                 </NavItem>
                 <NavItem className='header-links-li'>
-                    <NavLink href="#">Houses</NavLink>
+                    <Link to='/houses/'>Houses</Link>
                 </NavItem>
                 <NavItem className='header-links-li'>
-                    <NavLink href="#">Books</NavLink>   
+                    <Link to='/books/'>Books</Link>   
                 </NavItem>
             </Nav>
         </HeaderBlock>
