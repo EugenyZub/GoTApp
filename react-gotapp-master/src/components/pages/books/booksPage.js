@@ -31,10 +31,12 @@ export default class BooksPage extends Component {
             return <ErrorMessage/>
         }
         const itemList = (
-            <ItemList 
-                onItemSelected={this.onItemSelected}
-                getData={this.gotService.getAllBooks}
-                renderItem={({name, numberOfPages}) => `${name} (${numberOfPages})`}/>
+            <div className='random-block'>
+                <ItemList
+                    onItemSelected={this.onItemSelected}
+                    getData={this.gotService.getAllBooks}
+                    renderItem={({name, numberOfPages}) => `${name} (${numberOfPages})`}/>
+            </div>
         )
 
         const bookDetails = (

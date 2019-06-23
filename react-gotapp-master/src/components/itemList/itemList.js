@@ -56,7 +56,6 @@ export default class ItemList extends Component {
 
     render() {
         const {itemList, error, loading} = this.state;
-        const errorMessage = error && <ErrorMessage/>;
 
         if (loading) {
             return <Spinner/>
@@ -68,8 +67,7 @@ export default class ItemList extends Component {
         const items = this.renderItems(itemList);   
 
         return (
-            <ListGroup>
-                {/* {errorMessage} */}
+            <ListGroup flush>
                 {items}
             </ListGroup>
         );

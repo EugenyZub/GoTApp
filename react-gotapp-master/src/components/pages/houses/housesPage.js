@@ -31,10 +31,12 @@ export default class HousesPage extends Component {
             return <ErrorMessage/>
         }
         const itemList = (
-            <ItemList 
-                onItemSelected={this.onItemSelected}
-                getData={this.gotService.getAllHouses}
-                renderItem={({name, region}) => `${name} (${region})`}/>
+            <div className='random-block'>
+                <ItemList 
+                    onItemSelected={this.onItemSelected}
+                    getData={this.gotService.getAllHouses}
+                    renderItem={({name, region}) => `${name} (${region})`}/>
+            </div>
         )
 
         const houseDetails = (

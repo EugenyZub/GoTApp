@@ -6,7 +6,7 @@ export default class GotService {
 
      getResource = async (url) => {
         const res = await fetch(`${this._apiBase}${url}`);
-        if (res.ok) {
+        if (!res.ok) {
             throw res.status;
         }
 
