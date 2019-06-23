@@ -60,13 +60,17 @@ export default class ItemList extends Component {
         if (loading) {
             return <Spinner/>
         }
+        if(error) {
+            return <ErrorMessage/>
+        }
+
         const items = this.renderItems(itemList);
 
-        const errorMessage = error ? <ErrorMessage/> : null;
+        //const errorMessage = error && <ErrorMessage/>;
 
         return (
             <ListGroup>
-                {errorMessage}
+                {/* {errorMessage} */}
                 {items}
             </ListGroup>
         );
