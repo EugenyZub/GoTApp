@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import ItemList from '../itemList';
-import CharDetails, {Field} from '../charDetails';
-import ErrorMessage from '../errorMessage/';
-import gotService from '../../services/gotService';
-import RowBlock from '../rowBlock';
+import ItemList from '../../itemList';
+import ItemDetails, {Field} from '../../itemDetails';
+import ErrorMessage from '../../errorMessage/';
+import gotService from '../../../services/gotService';
+import RowBlock from '../../rowBlock';
 
 export default class CharacterPage extends Component {
     gotService = new gotService();
@@ -59,12 +59,14 @@ export default class CharacterPage extends Component {
         
         if( this.state.selectedChar !== null) {
             return (
-                <CharDetails 
+                <ItemDetails 
                         itemId={this.state.selectedChar}
                         getData={this.gotService.getCharacter}>
                     <Field field='gender' label='Gender'/>
                     <Field field='born' label='Born'/>
-                </CharDetails>
+                    <Field field='died' label='Died'/>
+                    <Field field='culture' label='Culture'/>
+                </ItemDetails>
             )
         }
 

@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import Spinner from '../spinner';
 import ErrorMessage from '../errorMessage';
 
-import './charDetails.css';
+import './itemDetails.css';
 
 const CharDetailsBlock = styled.div`
     background-color: #fff;
@@ -31,7 +31,7 @@ export {
     Field
 }
 
-export default class CharDetails extends Component {
+export default class ItemDetails extends Component {
 
     state = {
         item: null,

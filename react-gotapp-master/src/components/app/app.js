@@ -3,7 +3,7 @@ import {Col, Row, Container, Button} from 'reactstrap';
 import Header from '../header';
 import RandomChar from '../randomChar';
 import ErrorMessage from '../errorMessage';
-import CharacterPage from '../characterPage';
+import CharacterPage from '../pages/characterPage';
 import BooksPage from '../pages/books'
 import HousesPage from '../pages/houses'
 //import ItemList from '../itemList';

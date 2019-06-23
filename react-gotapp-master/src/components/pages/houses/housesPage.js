@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 //import {Col, Row} from 'reactstrap';
 import ItemList from '../../itemList';
-import CharDetails, {Field} from '../../charDetails';
+import ItemDetails, {Field} from '../../itemDetails';
 import ErrorMessage from '../../errorMessage';
 import gotService from '../../../services/gotService';
 import RowBlock from '../../rowBlock';
@@ -39,12 +39,12 @@ export default class HousesPage extends Component {
         )
 
         const houseDetails = (
-            <CharDetails 
+            <ItemDetails 
                     itemId={this.state.selectedHouse}
                     getData={this.gotService.getHouse}>
                 <Field field='region' label='region'/>
                 <Field field='words' label='words'/>
-            </CharDetails>
+            </ItemDetails>
         )
 
         return (
