@@ -56,7 +56,8 @@ export default class ItemList extends Component {
 
     render() {
         const {itemList, error, loading} = this.state;
-        
+        const errorMessage = error && <ErrorMessage/>;
+
         if (loading) {
             return <Spinner/>
         }
@@ -64,9 +65,7 @@ export default class ItemList extends Component {
             return <ErrorMessage/>
         }
 
-        const items = this.renderItems(itemList);
-
-        //const errorMessage = error && <ErrorMessage/>;
+        const items = this.renderItems(itemList);   
 
         return (
             <ListGroup>
